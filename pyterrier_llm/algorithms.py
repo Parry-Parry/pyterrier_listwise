@@ -52,7 +52,6 @@ def single_window(model, query : str, query_results : pd.DataFrame):
     orig_idxs = np.arange(0, len(doc_texts))
     doc_idx[orig_idxs] = doc_idx[order]
     doc_texts[orig_idxs] = doc_texts[order]
-    model.log.queries.append(model.current_query)
 
     return concat([doc_idx, rest_idx]), concat([doc_texts, rest_texts])
     
