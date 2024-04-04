@@ -10,7 +10,6 @@ class RankGPT(LLMTransformer):
                  checkpoint : str,
                  **kwargs) -> None:
         super().__init__(**kwargs)
-
         self.model = GPTRanker(model=checkpoint, context_size=4096, key=os.getenv('OPENAI_API_KEY'))
     
     def score(self, query : str, doc_text : List[str], window_len : int, **kwargs):

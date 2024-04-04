@@ -26,15 +26,9 @@ Output Passage A or Passage B:"""
     def __init__(self, 
                  model_path : str = 'google/t5-base', 
                  batch_size : int = 16, 
-                 verbose : bool = True, 
                  bfloat16 : bool = None, 
-                 window_size : int = 20, 
-                 stride : int = 10, 
-                 buffer : int = 20, 
-                 mode='sliding', 
-                 max_iters : int = 100,
                  **kwargs):
-        super().__init__(window_size=window_size, stride=stride, buffer=buffer, mode=mode, max_iters=max_iters, verbose=verbose, **kwargs)
+        super().__init__(**kwargs)
         self.batch_size = batch_size
         self.tokenizer = T5Tokenizer.from_pretrained(model_path, return_dict=False, legacy=False, use_fast=True)
         self.model = T5ForConditionalGeneration.from_pretrained(model_path).cuda().eval()
