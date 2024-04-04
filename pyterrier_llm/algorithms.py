@@ -107,4 +107,4 @@ def setwise(model, query : str, query_results : pd.DataFrame):
 class Mode(Enum):
     single = 1
     sliding = 2
-    setwise = 4
+    setwise = 3
