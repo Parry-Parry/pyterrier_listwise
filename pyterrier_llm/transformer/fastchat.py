@@ -2,7 +2,7 @@ from typing import Optional, Union, List
 import numpy as np
 from .base import LLMTransformer
 from ..modelling.prompt import RankPrompt
-from ..modelling.base import LLMRanker
+from ..modelling.fastchat import FastChatLLM
 import torch
 
 class FastChatListwise(LLMTransformer):
@@ -14,7 +14,7 @@ class FastChatListwise(LLMTransformer):
                  **kwargs) -> None:
         super().__init__(**kwargs)
 
-        self.model = LLMRanker(checkpoint=checkpoint, device=device, n_gpu=n_gpu)
+        self.model = FastChatLLM(checkpoint=checkpoint, device=device, n_gpu=n_gpu)
         self.prompt = RankPrompt(model=checkpoint, tokenizer=self.model._tokenizer, max_length=max_length, rankllm=False)
     
     def score(self, query : str, doc_text : List[str], window_len : int, **kwargs):

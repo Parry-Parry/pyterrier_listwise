@@ -1,13 +1,13 @@
 from typing import List, Any, Optional
 import torch
-from fastchat.model import load_model
 from transformers.generation import GenerationConfig
 import re
 
 # Based on https://github.com/castorini/rank_llm/blob/main/src/rank_llm/
 
-class LLMRanker:
+class FastChatLLM:
     def __init__(self, checkpoint : Any, n_gpu : Optional[int] = None, device : Any = None, **kwargs) -> None:
+        from fastchat.model import load_model
         if not device:
             device = 'cuda' if n_gpu else 'cpu'
         self.device = device
