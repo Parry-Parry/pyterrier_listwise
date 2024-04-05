@@ -56,10 +56,22 @@ Output Passage A or Passage B:"""
             inputs = self.tokenizer(prompts,
                                        padding='longest',
                                        return_tensors="pt").input_ids.to(self.model.device)
-            outputs = self.model.generate(inputs, decoder_input_ids=self.decoder_input_ids, max_new_tokens=2)
-            scores = outputs[:, (self.A, self.B)].softmax(dim=-1)[:, 0].tolist()
-            for (i, j), score in zip(batch, scores):
-                score_matrix[i, j] = score
+            with torch.no_grad():
+                outputs = self.model.generate(inputs, decoder_input_ids=self.decoder_input_ids, max_new_tokens=2)
+            outputs = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
+
+            for k in range(0, len(outputs)):
+                i, j = batch[k]
+                output1 = outputs[i]
+                if output1 == "Passage A":
+                    score_matrix[i, j] = 1
+                    score_matrix[j, i] = 0
+                elif output1 == "Passage B":
+                    score_matrix[i, j] = 0
+                    score_matrix[j, i] = 1
+                else:  # conflict
+                    score_matrix[i, j] = 0.5
+                    score_matrix[j, i] = 0.5
         
         for i in range(len(doc_texts)):
             for j in range(len(doc_texts)):
