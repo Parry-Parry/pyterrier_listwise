@@ -24,7 +24,7 @@ Passage B: "{doc2}"
 Output Passage A or Passage B:"""
 
     def __init__(self, 
-                 model_path : str = 'google/t5-base', 
+                 model_path : str = 'google/flan-t5-xl', 
                  batch_size : int = 16, 
                  bfloat16 : bool = None, 
                  **kwargs):
