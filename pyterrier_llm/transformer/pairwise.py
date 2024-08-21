@@ -47,7 +47,7 @@ Output Passage A or Passage B:"""
         self.decoder_input_ids = self.decoder_input_ids.repeat(self.batch_size, 1)
         self.A, self.B = self.tokenizer.encode("A")[0], self.tokenizer.encode("B")[0]
 
-    def score(self, query : str, doc_text : list, **kwargs):
+    def score(self, query : str, doc_texts : list, **kwargs):
         idx = create_pairs(len(doc_texts))
         score_matrix = np.zeros((len(doc_texts), len(doc_texts)))
         progress = not self.verbose

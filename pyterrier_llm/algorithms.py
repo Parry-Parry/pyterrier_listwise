@@ -3,7 +3,6 @@ from ._util import RankedList, iter_windows
 import logging 
 import numpy as np
 from numpy import concatenate as concat
-from enum import Enum
 
 logger = logging.getLogger(__name__)
 
@@ -103,8 +102,3 @@ def setwise(model, query : str, query_results : pd.DataFrame):
         # Heapify root element
         _heapify(model, query, ranking, i, 0)     
     return ranking.doc_idx, ranking.doc_texts  
-
-class Mode(Enum):
-    single = 1
-    sliding = 2
-    setwise = 3

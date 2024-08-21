@@ -1,4 +1,4 @@
-from ..algorithms import Mode, setwise, sliding_window, single_window
+from ..algorithms import setwise, sliding_window, single_window
 from functools import partial
 from abc import ABC, abstractmethod
 import pyterrier as pt
@@ -55,7 +55,6 @@ class LLMTransformer(pt.Transformer, ABC):
         self.verbose = verbose
 
         assert cutoff < window_size, "cutoff must be less than window_size"
-        assert mode in Mode, f"mode must be one of {Mode}"
         mode = {
             'setwise': setwise,
             'sliding': sliding_window,
